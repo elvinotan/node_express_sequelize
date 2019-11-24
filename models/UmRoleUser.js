@@ -1,6 +1,6 @@
 'use strict';
 module.exports = (sequelize, DataTypes) => {
-  const model = sequelize.define('um_role_user', {
+  const model = sequelize.define('roleUserBean', {
     roleId: {
       type: DataTypes.INTEGER,
       field: 'role_id',

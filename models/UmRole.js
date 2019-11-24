@@ -1,6 +1,6 @@
 'use strict';
 module.exports = (sequelize, DataTypes) => {
-  const model = sequelize.define('um_role', {
+  const model = sequelize.define('roleBean', {
     roleId: {
       type: DataTypes.INTEGER,
       field: 'role_id',
@@ -36,8 +36,8 @@ module.exports = (sequelize, DataTypes) => {
     timestamps: false,
   });
 
-  model.associate = function(models) {
-    model.roleUser = model.belongsToMany(models.um_user, { through: models.um_role_user, as: 'users', foreignKey: 'roleId', otherKey: 'userId' })
+  model.associate = function({ userBean, roleUserBean }) {
+    model.users = model.belongsToMany(userBean, { through: roleUserBean, as: 'users', foreignKey: 'roleId', otherKey: 'userId' })
   };
 
   model.attributes = ['roleId', 'roleName', 'active'];
