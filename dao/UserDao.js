@@ -1,17 +1,17 @@
-const { userBean, roleBean, roleUserBean } = require('../models/index')
-const ot = require('../utils/ObjectTool')
+const { userBean, roleBean } = require('../models/index')
+const ot = require('../utils/objectTool')
 
 // Pada level Dao, penambalian harus berupa promise
 
 module.exports = {
     getUser (userId) {
-        console.log('UmUserDao.getUser', userId)
+        console.log('UserDao.getUser', userId)
 
         return userBean.findOne({ where: { userId }, attributes: userBean.attributes})
     },
 
     getUsers () {
-        console.log('UmUserDao.getUsers')
+        console.log('UserDao.getUsers')
 
         return userBean.findAll({
             attributes: userBean.attributes, 
@@ -22,7 +22,7 @@ module.exports = {
     },
 
     saveUser (user, t) {
-        console.log('UmUserDao.saveUser', user)
+        console.log('UserDao.saveUser', user)
 
         const pk = 'userId'
 

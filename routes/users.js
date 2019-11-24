@@ -1,13 +1,13 @@
 const express = require('express');
 const router = express.Router();
-const umService = require('../service/UmService');
-const loginFilter = require('../utils/LoginFilter');
+const userManagementService = require('../service/userManagementService');
+const loginFilter = require('../utils/loginFilter');
 
 // POST http://localhost:3000/users/getUser
 // Body { "userId": "1" }
 router.post('/users/getUser', loginFilter, async (req, res) => {
   try {
-    const data = await umService.getUser(req.body.userId);
+    const data = await userManagementService.getUser(req.body.userId);
     res.json({success: true, data})
   } catch (ex) {
     console.log(ex)
@@ -19,7 +19,7 @@ router.post('/users/getUser', loginFilter, async (req, res) => {
 // Body { }
 router.post('/users/getUsers', loginFilter, async (req, res) => {
   try {
-    const data = await umService.getUsers();
+    const data = await userManagementService.getUsers();
     res.json({success: true, data})
   } catch (ex) {
     console.log(ex)
@@ -31,7 +31,7 @@ router.post('/users/getUsers', loginFilter, async (req, res) => {
 // Body { "userName": "carinnia",  "displayName": "Carinnia Tan", "password": "password", "token": "token" }
 router.post('/users/saveUser', loginFilter, async (req, res) => {
   try {
-    const data = await umService.saveUser(req.body);
+    const data = await userManagementService.saveUser(req.body);
     res.json({success: true, data})
   } catch(ex) {
     console.log(ex)
