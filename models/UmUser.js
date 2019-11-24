@@ -23,6 +23,10 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.STRING,
       field: 'token'
     },
+    active: {
+      type: DataTypes.BOOLEAN,
+      field: 'active'
+    },
     createdBy: {
       type: DataTypes.STRING,
       field: 'created_by'
@@ -47,6 +51,8 @@ module.exports = (sequelize, DataTypes) => {
   model.associate = function(models) {
     // associations can be defined here
   };
+
+  model.attributes = ['userId', 'userName', 'displayName', 'password', 'token', 'active'];
 
   return model;
 };

@@ -1,15 +1,33 @@
 const umUserDao = require('../dao/UmUserDao')
+const db = require('../models/index')
+
+// Pada level Service, penambalian harus berupa real object, non promise
 
 module.exports = {
-    getUser (userId) {
+    async getUser (userId) {
         console.log('UmService.getUser', userId)
 
-        return umUserDao.getUser(userId)
+        return await umUserDao.getUser(userId)
     },
 
-    saveUser(user) {
+    async getUsers () {
+        console.log('UmService.getUsers')
+
+        return await umUserDao.getUsers()
+    },
+
+    async saveUser(user) {
         console.log('UmService.saveUser', user)
 
-        return umUserDao.saveUser(user)
+        let t = null
+        try{
+            t = await db.sequelize.transaction()
+            const userId = await umUserDao.saveUser(user, t)
+            await t.commit()
+
+            return await umUserDao.getUser(userId)
+        }catch(e) { 
+            if (t) t.rollback(); throw e; 
+        }
     }
 }
