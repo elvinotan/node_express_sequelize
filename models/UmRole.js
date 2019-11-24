@@ -1,27 +1,15 @@
 'use strict';
 module.exports = (sequelize, DataTypes) => {
-  const model = sequelize.define('um_user', {
-    userId: {
+  const model = sequelize.define('um_role', {
+    roleId: {
       type: DataTypes.INTEGER,
-      field: 'user_id',
+      field: 'role_id',
       primaryKey: true,
       autoIncrement: true
     },
-    userName: {
+    roleName: {
       type: DataTypes.STRING,
-      field: 'user_name'
-    },
-    displayName: {
-      type: DataTypes.STRING,
-      field: 'display_name'
-    },
-    password: {
-      type: DataTypes.STRING,
-      field: 'password'
-    },
-    token: {
-      type: DataTypes.STRING,
-      field: 'token'
+      field: 'role_name'
     },
     active: {
       type: DataTypes.BOOLEAN,
@@ -44,15 +32,15 @@ module.exports = (sequelize, DataTypes) => {
       field: 'modified_date'
     }
   }, {
-    tableName: 'um_user',
+    tableName: 'um_role',
     timestamps: false,
   });
 
   model.associate = function(models) {
-    model.roleUser = model.belongsToMany(models.um_role, { through: models.um_role_user, as: 'roles', foreignKey: 'userId', otherKey: 'roleId' })
+    model.roleUser = model.belongsToMany(models.um_user, { through: models.um_role_user, as: 'users', foreignKey: 'roleId', otherKey: 'userId' })
   };
 
-  model.attributes = ['userId', 'userName', 'displayName', 'password', 'token', 'active'];
+  model.attributes = ['roleId', 'roleName', 'active'];
 
   return model;
 };

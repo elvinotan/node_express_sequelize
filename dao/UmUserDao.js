@@ -7,13 +7,18 @@ module.exports = {
     getUser (userId) {
         console.log('UmUserDao.getUser', userId)
 
-        return db.um_user.findOne({ where:{userId}, attributes: db.um_user.attributes })
+        return db.um_user.findOne({ where:{userId}, attributes: db.um_user.attributes})
     },
 
-    getUsers (userId) {
+    getUsers () {
         console.log('UmUserDao.getUsers')
 
-        return db.um_user.findAll({attributes: db.um_user.attributes})
+        return db.um_user.findAll({
+            attributes: db.um_user.attributes, 
+            include:[
+                { association:db.um_user.roleUser, require:false, attributes:db.um_role.attributes }
+            ]
+        })
     },
 
     saveUser (user, t) {
